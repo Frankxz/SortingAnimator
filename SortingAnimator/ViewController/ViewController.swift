@@ -201,12 +201,17 @@ extension ViewController {
             guard let cell1 = self.collectionView.cellForItem(at: index1) as? ElementCell else { return }
             guard let cell2 = self.collectionView.cellForItem(at: index2) as? ElementCell else { return }
 
+            cell1.shake()
+
             UIView.animate(withDuration: 0.45) {
                 cell1.backgroundColor = .systemBlue
                 cell2.backgroundColor = .systemBlue
             }
 
-            self.collectionView.moveItem(at: index2, to: index1)
+            UIView.animate(withDuration: 0.1, delay: 0.3) {
+                self.collectionView.moveItem(at: index2, to: index1)
+
+            }
 
             for (index, cell) in self.collectionView.visibleCells.enumerated() {
                 if index < self.collectionView.visibleCells.count - elementsOnOwnPosition {

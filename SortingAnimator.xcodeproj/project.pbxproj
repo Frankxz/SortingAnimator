@@ -12,6 +12,7 @@
 		C624044E294B404200FDC674 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C624044D294B404200FDC674 /* Elements.swift */; };
 		C6240451294B849B00FDC674 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6240450294B849B00FDC674 /* CustomSegmentedControl.swift */; };
 		C6240453294B8ACC00FDC674 /* SpeedTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6240452294B8ACC00FDC674 /* SpeedTypeButton.swift */; };
+		C6240456294BBC6B00FDC674 /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6240455294BBC6B00FDC674 /* UIView + Extensions.swift */; };
 		C64D3B55294B28F800336682 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64D3B54294B28F800336682 /* AppDelegate.swift */; };
 		C64D3B59294B28F800336682 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64D3B58294B28F800336682 /* ViewController.swift */; };
 		C64D3B5E294B28F900336682 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C64D3B5D294B28F900336682 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		C624044D294B404200FDC674 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		C6240450294B849B00FDC674 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		C6240452294B8ACC00FDC674 /* SpeedTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTypeButton.swift; sourceTree = "<group>"; };
+		C6240455294BBC6B00FDC674 /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
 		C64D3B51294B28F800336682 /* SortingAnimator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SortingAnimator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C64D3B54294B28F800336682 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C64D3B58294B28F800336682 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C6240454294BBC5800FDC674 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C6240455294BBC6B00FDC674 /* UIView + Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C64D3B48294B28F800336682 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +98,7 @@
 		C64D3B53294B28F800336682 /* SortingAnimator */ = {
 			isa = PBXGroup;
 			children = (
+				C6240454294BBC5800FDC674 /* Extensions */,
 				C624044A294B3E2D00FDC674 /* Service */,
 				C64D3B6A294B2DE500336682 /* ViewController */,
 				C6240447294B331300FDC674 /* View */,
@@ -194,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6240456294BBC6B00FDC674 /* UIView + Extensions.swift in Sources */,
 				C6240453294B8ACC00FDC674 /* SpeedTypeButton.swift in Sources */,
 				C624044C294B3E3E00FDC674 /* BubleSort.swift in Sources */,
 				C6240449294B334500FDC674 /* ElementCell.swift in Sources */,
