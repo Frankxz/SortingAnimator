@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C6240449294B334500FDC674 /* ElementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6240448294B334500FDC674 /* ElementCell.swift */; };
-		C624044C294B3E3E00FDC674 /* BubleSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = C624044B294B3E3E00FDC674 /* BubleSort.swift */; };
+		C624044C294B3E3E00FDC674 /* BubleSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C624044B294B3E3E00FDC674 /* BubleSorter.swift */; };
 		C624044E294B404200FDC674 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = C624044D294B404200FDC674 /* Elements.swift */; };
 		C6240451294B849B00FDC674 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6240450294B849B00FDC674 /* CustomSegmentedControl.swift */; };
 		C6240453294B8ACC00FDC674 /* SpeedTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6240452294B8ACC00FDC674 /* SpeedTypeButton.swift */; };
@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		C6240448294B334500FDC674 /* ElementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementCell.swift; sourceTree = "<group>"; };
-		C624044B294B3E3E00FDC674 /* BubleSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubleSort.swift; sourceTree = "<group>"; };
+		C624044B294B3E3E00FDC674 /* BubleSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubleSorter.swift; sourceTree = "<group>"; };
 		C624044D294B404200FDC674 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		C6240450294B849B00FDC674 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		C6240452294B8ACC00FDC674 /* SpeedTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTypeButton.swift; sourceTree = "<group>"; };
@@ -52,24 +52,17 @@
 		C6240447294B331300FDC674 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C6C9B0C2294C9D6200227413 /* InfoView */,
 				C6240457294C7FE300FDC674 /* Cell */,
+				C6C9B0C2294C9D6200227413 /* InfoView */,
 				C6240458294C7FFC00FDC674 /* SegmentedControl */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		C624044A294B3E2D00FDC674 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				C624044B294B3E3E00FDC674 /* BubleSort.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		C624044F294B404900FDC674 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C624044B294B3E3E00FDC674 /* BubleSorter.swift */,
 				C624044D294B404200FDC674 /* Elements.swift */,
 			);
 			path = Model;
@@ -120,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				C6240454294BBC5800FDC674 /* Extensions */,
-				C624044A294B3E2D00FDC674 /* Service */,
 				C64D3B6A294B2DE500336682 /* ViewController */,
 				C6240447294B331300FDC674 /* View */,
 				C624044F294B404900FDC674 /* Model */,
@@ -238,7 +230,7 @@
 				C6240456294BBC6B00FDC674 /* UIView + Extensions.swift in Sources */,
 				C6240453294B8ACC00FDC674 /* SpeedTypeButton.swift in Sources */,
 				C6C9B0C1294C940B00227413 /* CustomProgressView.swift in Sources */,
-				C624044C294B3E3E00FDC674 /* BubleSort.swift in Sources */,
+				C624044C294B3E3E00FDC674 /* BubleSorter.swift in Sources */,
 				C6240449294B334500FDC674 /* ElementCell.swift in Sources */,
 				C64D3B59294B28F800336682 /* ViewController.swift in Sources */,
 				C64D3B55294B28F800336682 /* AppDelegate.swift in Sources */,

@@ -53,6 +53,18 @@ extension InfoView {
             descriptionLabel.text = "Successfully sorted."
         }
     }
+
+    public func resetProgress() {
+        if progressView.progress > 0 {
+            progressView.progress -= 0.01
+            progressValueLabel.text = "\(Int(progressView.progress * 100))%"
+            descriptionLabel.text = "Reseting..."
+
+            if progressValueLabel.text == "0%" {
+                descriptionLabel.text = "Waiting to start sorting"
+            }
+        }
+    }
 }
 
 // MARK: - UI + COnstraints

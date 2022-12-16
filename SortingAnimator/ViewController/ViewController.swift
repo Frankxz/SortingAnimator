@@ -47,47 +47,50 @@ class ViewController: UIViewController {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 16
         button.backgroundColor = .systemBlue
-        button.setTitle("Start", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setImage(UIImage(systemName: "play"), for: .normal)
+        button.tintColor = .white
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         return button
     }()
 
-    private lazy var restartButton: UIButton = {
+    private lazy var generateRandomButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 22
         button.backgroundColor = .tertiarySystemGroupedBackground
-        button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+        button.setImage(UIImage(systemName: "wand.and.rays"), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.blue, for: .selected)
-        button.addTarget(self, action: #selector(restartButtonTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(generateRandomTapped(_:)), for: .touchUpInside)
         return button
     }()
 
-    private lazy var editButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.layer.cornerRadius = 22
-        button.backgroundColor = .tertiarySystemGroupedBackground
-        button.setImage(UIImage(systemName: "pencil"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(.blue, for: .selected)
-        button.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
-        return button
-    }()
 
     private let infoView = InfoView(frame: .zero)
 
     private var elements: [UInt32] = [5,4,3,2,1,0]
 
+    private var unsortedElements: [UInt32] = []
+
+    private var isCellsEditing: Bool = false
+
+    private var isCellsSorted: Bool = false
+
     private var timer: Timer?
+
+
 
     // MARK: - VC LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupConstraints()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
+
+        startButton.isEnabled = false
+        startButton.backgroundColor = .systemBlue.withAlphaComponent(0.7)
+        generateRandomButton.isEnabled = false
     }
 }
 
@@ -123,6 +126,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Sort animating logic
 extension ViewController {
     private func startBubleSort() {
+        unsortedElements = elements
         elements = []
         var elementsOnOwnPosition = 0
         let visibleCells = collectionView.visibleCells as! [ElementCell]
@@ -172,6 +176,16 @@ extension ViewController {
                         cell.backgroundColor = .systemGreen
                     }
                 }
+                if !self.isCellsSorted {
+                    UIView.animate(withDuration: 0.3, delay: 0.7) {
+                        self.startButton.isEnabled = true
+                        self.segmentedControl.isUserInteractionEnabled = true
+                        self.startButton.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+                        self.startButton.backgroundColor = .systemYellow
+                        self.isCellsSorted.toggle()
+                        self.toggleCellsEditing()
+                    }
+                }
             }
         })
     }
@@ -180,7 +194,14 @@ extension ViewController {
 // MARK: - ProgressView
 extension ViewController {
     private func startProgressView() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
+        var timeInterval = 0.13
+        switch segmentedControl.selectedItem.speedType {
+            case .slow: timeInterval = 0.39
+            case .medium: timeInterval = 0.13
+            case .fast: timeInterval = 0.07
+            case .none: timeInterval = 0.13
+        }
+        timer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: true, block: { _ in
             self.animateLoading()
         })
     }
@@ -193,31 +214,80 @@ extension ViewController {
     }
 }
 
+// MARK: - Editing cells
+extension ViewController {
+    private func toggleCellsEditing() {
+        let visibleCells = collectionView.visibleCells as! [ElementCell]
+        visibleCells.forEach { cell in
+            cell.valueTextField.isUserInteractionEnabled.toggle()
+        }
+    }
+}
+
 // MARK: - Actions
 extension ViewController {
     @objc func buttonTapped(_ sender: UIButton) {
+        if isCellsSorted {
+            restartElements()
+            return
+        }
+
+        toggleCellsEditing()
+        UIView.animate(withDuration: 0.3) {
+            self.startButton.isEnabled = false
+            self.generateRandomButton.isEnabled = false
+            self.segmentedControl.isUserInteractionEnabled = false
+            self.startButton.backgroundColor = .systemBlue.withAlphaComponent(0.7)
+        }
         startBubleSort()
         startProgressView()
     }
 
-    @objc func restartButtonTapped(_ sender: UIButton) {
-        elements = elements.reversed()
+    private func restartElements() {
+        elements = unsortedElements
         collectionView.reloadData()
+
+        UIView.animate(withDuration: 0.3) {
+            self.startButton.isEnabled = false
+            self.startButton.backgroundColor = .systemBlue
+            self.startButton.setImage(UIImage(systemName: "play"), for: .normal)
+            self.isCellsSorted.toggle()
+            self.toggleCellsEditing()
+        }
+
+        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
+            self.infoView.resetProgress()
+            if (self.infoView.progressView.progress <= 0) {
+                self.timer?.invalidate()
+                self.startButton.isEnabled = true
+                self.generateRandomButton.isEnabled = true
+            }
+        })
     }
 
     @objc private func handleSegmentedControl(_ sender: CustomSegmentedControl) {
         BubbleSorter.changeBubleSortSpeed(for: segmentedControl.selectedItem.speedType ?? .medium)
+
+        UIView.animate(withDuration: 0.3) {
+            self.startButton.isEnabled = true
+            self.startButton.backgroundColor = .systemBlue
+            self.generateRandomButton.isEnabled = true
+        }
     }
 
-    @objc private func editButtonTapped(_ sender: UIButton) {
-
+    @objc private func generateRandomTapped(_ sender: UIButton) {
+        elements = Elements.getRandomElements(for: 6)
+        unsortedElements = elements
+        collectionView.reloadData()
+        startButton.isEnabled = true
+        startButton.backgroundColor = .systemBlue
     }
 }
 
 // MARK: - UI + Constraints
 extension ViewController {
     private func setupConstraints() {
-        view.addSubviewsWithMask([ collectionView, startButton, restartButton, editButton, segmentedControl, titleLabel, infoView ])
+        view.addSubviewsWithMask([ collectionView, startButton, generateRandomButton, segmentedControl, titleLabel, infoView ])
 
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
@@ -242,18 +312,13 @@ extension ViewController {
 
             startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
             startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            startButton.trailingAnchor.constraint(equalTo: restartButton.leadingAnchor, constant: -20),
+            startButton.trailingAnchor.constraint(equalTo: generateRandomButton.leadingAnchor, constant: -20),
             startButton.heightAnchor.constraint(equalToConstant: 44),
 
-            restartButton.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -20),
-            restartButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
-            restartButton.heightAnchor.constraint(equalToConstant: 44),
-            restartButton.widthAnchor.constraint(equalToConstant: 44),
-
-            editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            editButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
-            editButton.heightAnchor.constraint(equalToConstant: 44),
-            editButton.widthAnchor.constraint(equalToConstant: 44),
+            generateRandomButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            generateRandomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
+            generateRandomButton.heightAnchor.constraint(equalToConstant: 44),
+            generateRandomButton.widthAnchor.constraint(equalToConstant: 44),
         ])
     }
 }
