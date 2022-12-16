@@ -93,5 +93,4 @@ extension ElementCell: UITextFieldDelegate {
         @objc func doneButtonAction(){
             valueTextField.resignFirstResponder()
         }
-
 }

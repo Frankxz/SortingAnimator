@@ -17,6 +17,7 @@
 		C64D3B59294B28F800336682 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64D3B58294B28F800336682 /* ViewController.swift */; };
 		C64D3B5E294B28F900336682 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C64D3B5D294B28F900336682 /* Assets.xcassets */; };
 		C64D3B61294B28F900336682 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C64D3B5F294B28F900336682 /* LaunchScreen.storyboard */; };
+		C6C9B0BE294C906D00227413 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C9B0BD294C906D00227413 /* InfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C64D3B5D294B28F900336682 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C64D3B60294B28F900336682 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C64D3B62294B28F900336682 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6C9B0BD294C906D00227413 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,9 +50,9 @@
 		C6240447294B331300FDC674 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C6240448294B334500FDC674 /* ElementCell.swift */,
-				C6240450294B849B00FDC674 /* CustomSegmentedControl.swift */,
-				C6240452294B8ACC00FDC674 /* SpeedTypeButton.swift */,
+				C6240457294C7FE300FDC674 /* Cell */,
+				C6240458294C7FFC00FDC674 /* SegmentedControl */,
+				C6C9B0BF294C907500227413 /* InfoView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -77,6 +79,23 @@
 				C6240455294BBC6B00FDC674 /* UIView + Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C6240457294C7FE300FDC674 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C6240448294B334500FDC674 /* ElementCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C6240458294C7FFC00FDC674 /* SegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				C6240450294B849B00FDC674 /* CustomSegmentedControl.swift */,
+				C6240452294B8ACC00FDC674 /* SpeedTypeButton.swift */,
+			);
+			path = SegmentedControl;
 			sourceTree = "<group>";
 		};
 		C64D3B48294B28F800336682 = {
@@ -133,6 +152,14 @@
 				C64D3B58294B28F800336682 /* ViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C6C9B0BF294C907500227413 /* InfoView */ = {
+			isa = PBXGroup;
+			children = (
+				C6C9B0BD294C906D00227413 /* InfoView.swift */,
+			);
+			path = InfoView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +239,7 @@
 				C64D3B59294B28F800336682 /* ViewController.swift in Sources */,
 				C64D3B55294B28F800336682 /* AppDelegate.swift in Sources */,
 				C624044E294B404200FDC674 /* Elements.swift in Sources */,
+				C6C9B0BE294C906D00227413 /* InfoView.swift in Sources */,
 				C6240451294B849B00FDC674 /* CustomSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

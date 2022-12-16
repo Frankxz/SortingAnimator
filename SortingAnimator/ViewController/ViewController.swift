@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         label.font = .systemFont(ofSize: 28, weight: .bold)
         label.textColor = .black
         label.textAlignment = .center
-        label.text = "Choose sort type"
+        label.text = "Bubble sort"
         return label
     }()
 
@@ -166,18 +166,11 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Sort Actions
 extension ViewController {
     @objc func buttonTapped(_ sender: UIButton) {
-        switch segmentedControl.selectedItem.speedType {
-        case .slow:
-            startBubleSort()
-        case .medium:
-            titleLabel.text = ""
-        default:
-            titleLabel.text = "CHOSE TYPE !!!"
-        }
+        startBubleSort()
     }
 
     @objc func restartButtonTapped(_ sender: UIButton) {
-        elements = [5,6,3,2,1,0]
+        elements = elements.reversed()
         collectionView.reloadData()
     }
 
@@ -195,8 +188,8 @@ extension ViewController {
             print("val: \(value)")
             elements.append(UInt32(value))
         }
-       // collectionView.reloadData()
-        elements = elements.altBubleSort(elements, completion: { firstElIndex, secondElIndex, isEnded, isCircleEnded   in
+
+        elements = BubbleSorter.altBubleSort(elements, completion: { firstElIndex, secondElIndex, isEnded, isCircleEnded   in
 
             if isCircleEnded {
                 print("Circle is Ended")
@@ -211,23 +204,20 @@ extension ViewController {
 
             cell1.shake()
 
-            UIView.animate(withDuration: 0.45) {
+            UIView.animate(withDuration: TimeInterval(BubbleSorter.bubbleSortSpeed / 2)) {
                 cell1.backgroundColor = .systemBlue
                 cell2.backgroundColor = .systemBlue
             }
 
-            UIView.animate(withDuration: 0.1, delay: 0.3) {
-                self.collectionView.moveItem(at: index2, to: index1)
-
-            }
+            self.collectionView.moveItem(at: index2, to: index1)
 
             for (index, cell) in self.collectionView.visibleCells.enumerated() {
                 if index < self.collectionView.visibleCells.count - elementsOnOwnPosition {
-                    UIView.animate(withDuration: 0.55) {
+                    UIView.animate(withDuration: TimeInterval(BubbleSorter.bubbleSortSpeed)) {
                         cell.backgroundColor = .black
                     }
                 } else  {
-                    UIView.animate(withDuration: 0.55) {
+                    UIView.animate(withDuration: TimeInterval(BubbleSorter.bubbleSortSpeed)) {
                         cell.backgroundColor = .systemGreen
                     }
                 }
@@ -235,33 +225,18 @@ extension ViewController {
 
             if isEnded {
                 self.collectionView.visibleCells.forEach { cell in
-                    UIView.animate(withDuration: 0.25, delay: 0.5) {
+                    UIView.animate(withDuration: TimeInterval(BubbleSorter.bubbleSortSpeed) / 2, delay: 0.5) {
                         cell.backgroundColor = .systemGreen
                     }
                 }
             }
         })
-        elements.forEach { el in
-            print("\(el)")
-        }
-
     }
 }
 
 // MARK: - SegmentedControl Action
 extension ViewController {
     @objc private func handleSegmentedControl(_ sender: CustomSegmentedControl) {
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            switch self?.segmentedControl.selectedItem.speedType {
-            case .slow:
-                self?.titleLabel.text = "Slow speed"
-            case .medium:
-                self?.titleLabel.text = "Medium speed"
-            case .fast:
-                self?.titleLabel.text = "Fast speed"
-            case .none:
-                self?.titleLabel.text = "Choose speed type"
-            }
-        }
+        BubbleSorter.changeBubleSortSpeed(for: segmentedControl.selectedItem.speedType ?? .medium)
     }
 }

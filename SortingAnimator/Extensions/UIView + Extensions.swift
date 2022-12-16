@@ -15,4 +15,11 @@ extension UIView {
         animation.values = [-5.0, 5.0, -5.0, 5.0, -5.0, 5.0, -5.0, 5.0, 0.0 ]
         layer.add(animation, forKey: "shake")
     }
+
+    func addSubviewsWithMask(_ subviews: [UIView]) {
+        subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview($0)
+        }
+    }
 }
