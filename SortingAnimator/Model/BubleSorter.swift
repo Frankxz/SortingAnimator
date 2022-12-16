@@ -11,7 +11,11 @@ struct BubbleSorter {
     static var bubbleSortSpeed: Double = 500
 
     // MARK: - Sort logic
-    static func altBubleSort(_ arr: [UInt32], completion: @escaping (_ firstElIndex: Int, _ secondElIndex: Int, _ isEnded: Bool, _ isCircleIterationEnded: Bool)->()) -> [UInt32] {
+    static func altBubleSort( _ arr: [Int],
+        completion: @escaping (_ firstElIndex: Int,
+                               _ secondElIndex: Int, _ isEnded: Bool,
+                               _ isCircleIterationEnded: Bool)->()) -> [Int] {
+
         guard arr.count > 1 else {return arr}
         var sortedArray = arr
 

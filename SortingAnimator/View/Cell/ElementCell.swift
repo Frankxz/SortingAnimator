@@ -36,7 +36,7 @@ class ElementCell: UICollectionViewCell {
     }
 
     // MARK: - Configuring cell
-    func configure(with value: UInt32) {
+    func configure(with value: Int) {
         valueTextField.text = "\(value)"
     }
 

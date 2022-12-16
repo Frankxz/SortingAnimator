@@ -8,11 +8,12 @@
 import Foundation
 
 class Elements {
-    static func getRandomElements(for size: Int)->[UInt32] {
-        let randomArray = (1...size).map{_ in arc4random_uniform(100)}
-        randomArray.forEach { num in
-            print("\(num)")
+    static func getRandomElements(for size: Int)->[Int] {
+        let uint32Array = (1...size).map{_ in arc4random_uniform(100)}
+        var intArray: [Int] = []
+        uint32Array.forEach { num in
+            intArray.append(Int(num))
         }
-        return randomArray
+        return intArray
     }
 }

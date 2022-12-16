@@ -68,7 +68,7 @@ class CustomSegmentedControl: UIView {
     }
 
     @objc func changeSelectedItem(button: SpeedTypeButton) {
-        for (buttonIndex, btn) in buttons.enumerated() {
+        for (_, btn) in buttons.enumerated() {
             btn.layer.borderColor = UIColor.systemGray2.cgColor
             btn.speedLabel.textColor  = UIColor.systemGray2
             btn.setAttributedTitle(
@@ -81,7 +81,6 @@ class CustomSegmentedControl: UIView {
 
             if btn == button {
                 selectedItem = btn
-                let selectorStartPosition = frame.width /  CGFloat(buttons.count) * CGFloat(buttonIndex)
                 UIView.animate(withDuration: 0.3) {
                     button.layer.borderColor = UIColor.systemBlue.cgColor
                     button.speedLabel.textColor = UIColor.black

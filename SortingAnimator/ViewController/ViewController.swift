@@ -67,9 +67,9 @@ class ViewController: UIViewController {
 
     private let infoView = InfoView(frame: .zero)
 
-    private var elements: [UInt32] = [5,4,3,2,1,0]
+    private var elements: [Int] = [5,4,3,2,1,0]
 
-    private var unsortedElements: [UInt32] = []
+    private var unsortedElements: [Int] = []
 
     private var isCellsEditing: Bool = false
 
@@ -133,7 +133,7 @@ extension ViewController {
         visibleCells.forEach { cell in
             let value = Int(cell.valueTextField.text ?? "") ?? 0
             print("val: \(value)")
-            elements.append(UInt32(value))
+            elements.append(value)
         }
 
         elements = BubbleSorter.altBubleSort(elements, completion: { firstElIndex, secondElIndex, isEnded, isCircleEnded   in
