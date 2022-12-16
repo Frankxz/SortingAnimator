@@ -17,7 +17,8 @@
 		C64D3B59294B28F800336682 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64D3B58294B28F800336682 /* ViewController.swift */; };
 		C64D3B5E294B28F900336682 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C64D3B5D294B28F900336682 /* Assets.xcassets */; };
 		C64D3B61294B28F900336682 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C64D3B5F294B28F900336682 /* LaunchScreen.storyboard */; };
-		C6C9B0BE294C906D00227413 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C9B0BD294C906D00227413 /* InfoView.swift */; };
+		C6C9B0C1294C940B00227413 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C9B0C0294C940B00227413 /* CustomProgressView.swift */; };
+		C6C9B0C4294C9D7B00227413 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C9B0C3294C9D7B00227413 /* InfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +34,8 @@
 		C64D3B5D294B28F900336682 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C64D3B60294B28F900336682 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C64D3B62294B28F900336682 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6C9B0BD294C906D00227413 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		C6C9B0C0294C940B00227413 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
+		C6C9B0C3294C9D7B00227413 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,9 +52,9 @@
 		C6240447294B331300FDC674 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C6C9B0C2294C9D6200227413 /* InfoView */,
 				C6240457294C7FE300FDC674 /* Cell */,
 				C6240458294C7FFC00FDC674 /* SegmentedControl */,
-				C6C9B0BF294C907500227413 /* InfoView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -154,10 +156,11 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		C6C9B0BF294C907500227413 /* InfoView */ = {
+		C6C9B0C2294C9D6200227413 /* InfoView */ = {
 			isa = PBXGroup;
 			children = (
-				C6C9B0BD294C906D00227413 /* InfoView.swift */,
+				C6C9B0C0294C940B00227413 /* CustomProgressView.swift */,
+				C6C9B0C3294C9D7B00227413 /* InfoView.swift */,
 			);
 			path = InfoView;
 			sourceTree = "<group>";
@@ -234,12 +237,13 @@
 			files = (
 				C6240456294BBC6B00FDC674 /* UIView + Extensions.swift in Sources */,
 				C6240453294B8ACC00FDC674 /* SpeedTypeButton.swift in Sources */,
+				C6C9B0C1294C940B00227413 /* CustomProgressView.swift in Sources */,
 				C624044C294B3E3E00FDC674 /* BubleSort.swift in Sources */,
 				C6240449294B334500FDC674 /* ElementCell.swift in Sources */,
 				C64D3B59294B28F800336682 /* ViewController.swift in Sources */,
 				C64D3B55294B28F800336682 /* AppDelegate.swift in Sources */,
 				C624044E294B404200FDC674 /* Elements.swift in Sources */,
-				C6C9B0BE294C906D00227413 /* InfoView.swift in Sources */,
+				C6C9B0C4294C9D7B00227413 /* InfoView.swift in Sources */,
 				C6240451294B849B00FDC674 /* CustomSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

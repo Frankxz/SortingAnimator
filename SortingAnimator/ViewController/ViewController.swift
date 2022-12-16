@@ -71,11 +71,15 @@ class ViewController: UIViewController {
         button.setImage(UIImage(systemName: "pencil"), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.blue, for: .selected)
-        button.addTarget(self, action: #selector(restartButtonTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
 
+    private let infoView = InfoView(frame: .zero)
+
     private var elements: [UInt32] = [5,4,3,2,1,0]
+
+    private var timer: Timer?
 
     // MARK: - VC LifeCycle
     override func viewDidLoad() {
@@ -84,58 +88,6 @@ class ViewController: UIViewController {
         setupConstraints()
         collectionView.delegate = self
         collectionView.dataSource = self
-    }
-}
-
-// MARK: - UI + Constraints
-extension ViewController {
-    private func setupConstraints() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        startButton.translatesAutoresizingMaskIntoConstraints = false
-        restartButton.translatesAutoresizingMaskIntoConstraints = false
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(collectionView)
-        view.addSubview(startButton)
-        view.addSubview(restartButton)
-        view.addSubview(editButton)
-        view.addSubview(segmentedControl)
-        view.addSubview(titleLabel)
-
-        NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 100),
-
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-
-            collectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            collectionView.heightAnchor.constraint(equalToConstant: 60),
-
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
-            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            startButton.trailingAnchor.constraint(equalTo: restartButton.leadingAnchor, constant: -20),
-            startButton.heightAnchor.constraint(equalToConstant: 44),
-
-            restartButton.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -20),
-            restartButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
-            restartButton.heightAnchor.constraint(equalToConstant: 44),
-            restartButton.widthAnchor.constraint(equalToConstant: 44),
-
-            editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            editButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
-            editButton.heightAnchor.constraint(equalToConstant: 44),
-            editButton.widthAnchor.constraint(equalToConstant: 44),
-        ])
     }
 }
 
@@ -161,24 +113,15 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         let sideSize = (Int(collectionView.frame.width) - 10) / elements.count
         return CGSize(width: sideSize, height: sideSize)
     }
-}
-
-// MARK: - Sort Actions
-extension ViewController {
-    @objc func buttonTapped(_ sender: UIButton) {
-        startBubleSort()
-    }
-
-    @objc func restartButtonTapped(_ sender: UIButton) {
-        elements = elements.reversed()
-        collectionView.reloadData()
-    }
 
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let item = elements.remove(at: sourceIndexPath.row)
         elements.insert(item, at: destinationIndexPath.row)
     }
+}
 
+// MARK: - Sort animating logic
+extension ViewController {
     private func startBubleSort() {
         elements = []
         var elementsOnOwnPosition = 0
@@ -234,9 +177,83 @@ extension ViewController {
     }
 }
 
-// MARK: - SegmentedControl Action
+// MARK: - ProgressView
 extension ViewController {
+    private func startProgressView() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
+            self.animateLoading()
+        })
+    }
+
+    private func animateLoading() {
+        infoView.updateProgress()
+        if (infoView.progressView.progress >= 1) {
+            self.timer?.invalidate()
+        }
+    }
+}
+
+// MARK: - Actions
+extension ViewController {
+    @objc func buttonTapped(_ sender: UIButton) {
+        startBubleSort()
+        startProgressView()
+    }
+
+    @objc func restartButtonTapped(_ sender: UIButton) {
+        elements = elements.reversed()
+        collectionView.reloadData()
+    }
+
     @objc private func handleSegmentedControl(_ sender: CustomSegmentedControl) {
         BubbleSorter.changeBubleSortSpeed(for: segmentedControl.selectedItem.speedType ?? .medium)
+    }
+
+    @objc private func editButtonTapped(_ sender: UIButton) {
+
+    }
+}
+
+// MARK: - UI + Constraints
+extension ViewController {
+    private func setupConstraints() {
+        view.addSubviewsWithMask([ collectionView, startButton, restartButton, editButton, segmentedControl, titleLabel, infoView ])
+
+        NSLayoutConstraint.activate([
+            segmentedControl.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 100),
+
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+
+            collectionView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            collectionView.heightAnchor.constraint(equalToConstant: 60),
+
+            infoView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+
+            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
+            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            startButton.trailingAnchor.constraint(equalTo: restartButton.leadingAnchor, constant: -20),
+            startButton.heightAnchor.constraint(equalToConstant: 44),
+
+            restartButton.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -20),
+            restartButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
+            restartButton.heightAnchor.constraint(equalToConstant: 44),
+            restartButton.widthAnchor.constraint(equalToConstant: 44),
+
+            editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            editButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
+            editButton.heightAnchor.constraint(equalToConstant: 44),
+            editButton.widthAnchor.constraint(equalToConstant: 44),
+        ])
     }
 }
