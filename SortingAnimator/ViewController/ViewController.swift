@@ -177,7 +177,7 @@ extension ViewController {
     }
 
     @objc func restartButtonTapped(_ sender: UIButton) {
-        elements = [5,4,3,2,1,0]
+        elements = [5,6,3,2,1,0]
         collectionView.reloadData()
     }
 
@@ -187,7 +187,15 @@ extension ViewController {
     }
 
     private func startBubleSort() {
+        elements = []
         var elementsOnOwnPosition = 0
+        let visibleCells = collectionView.visibleCells as! [ElementCell]
+        visibleCells.forEach { cell in
+            let value = Int(cell.valueTextField.text ?? "") ?? 0
+            print("val: \(value)")
+            elements.append(UInt32(value))
+        }
+       // collectionView.reloadData()
         elements = elements.altBubleSort(elements, completion: { firstElIndex, secondElIndex, isEnded, isCircleEnded   in
 
             if isCircleEnded {
@@ -226,11 +234,9 @@ extension ViewController {
             }
 
             if isEnded {
-                print("Ended")
                 self.collectionView.visibleCells.forEach { cell in
                     UIView.animate(withDuration: 0.25, delay: 0.5) {
                         cell.backgroundColor = .systemGreen
-                        print("MAKE BLACK")
                     }
                 }
             }
@@ -238,11 +244,7 @@ extension ViewController {
         elements.forEach { el in
             print("\(el)")
         }
-        self.collectionView.visibleCells.forEach { cell in
-            UIView.animate(withDuration: 0.25) {
-                cell.backgroundColor = .clear
-            }
-        }
+
     }
 }
 

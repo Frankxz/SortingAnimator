@@ -70,7 +70,7 @@ class CustomSegmentedControl: UIView {
     @objc func changeSelectedItem(button: SpeedTypeButton) {
         for (buttonIndex, btn) in buttons.enumerated() {
             btn.layer.borderColor = UIColor.systemGray2.cgColor
-            btn.speedLabel.textColor = UIColor.systemGray2
+            btn.speedLabel.textColor  = UIColor.systemGray2
             btn.setAttributedTitle(
                 NSAttributedString(
                     string: (btn.titleLabel?.text!)!,
